@@ -1,0 +1,53 @@
+---
+# defaults file for windows_active_directory
+domaingroups:
+- name: user_grp1
+  scope: Global
+  attributes:
+  - gidNumber: 1001
+- name: user_grp2
+  scope: Global
+  attributes:
+  - gidNumber: 1002
+- name: user_grp3
+  scope: Global
+  attributes:
+  - gidNumber: 1003
+- name: uk_dev
+  scope: domainlocal
+  attributes:
+  - gidNumber: 10000
+- name: uk_sys
+  scope: domainlocal
+  attributes:
+  - gidNumber: 10001
+- name: uk_uat
+  scope: domainlocal
+  attributes:
+  - gidNumber: 10002
+- name: uk_preprod
+  scope: domainlocal
+  attributes:
+  - gidNumber: 10003
+- name: uk_prod
+  scope: domainlocal
+  attributes:
+  - gidNumber: 10004
+- name: dbadmins
+  scope: domainlocal
+  attributes:
+  - gidNumber: 10004
+- name: webadmins
+  scope: domainlocal
+  attributes:
+  - gidNumber: 10005
+- name: universal_grp1
+  scope: universal
+  attributes:
+  - gidNumber: 20000
+- name: universal_grp2
+  scope: universal
+  attributes:
+  - gidNumber: 20001
+
+delegate_host: "192.168.56.181"

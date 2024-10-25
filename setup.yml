@@ -4,4 +4,5 @@
   gather_facts: false
 
   roles:
-  - create_windows_domain
+  #- create_windows_domain
+  - windows_ad_user_group

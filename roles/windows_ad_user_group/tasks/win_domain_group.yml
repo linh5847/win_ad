@@ -1,0 +1,9 @@
+---
+- name: Create Windows Domain groups
+  win_domain_group:
+    name: "{{ item.name }}"
+    scope: "{{ item.scope }}"
+    state: present
+    attributes: "{{ item.attributes|default(omit) }}"
+  with_items: "{{ domaingroups }}"
+  delegate_to: "{{ delegate_host | default(omit) }}"
