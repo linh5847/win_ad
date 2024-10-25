@@ -1,4 +1,11 @@
 ---
+- name: Set Password
+  win_user:
+    name: administrator
+    password: "{{ recovery_password }}"
+    state: present
+  ignore_errors: True
+
 - name: Set upstream DNS server.
   win_dns_client:
     adapter_names: '*'
@@ -47,20 +54,18 @@
   win_domain:
     dns_domain_name: "{{ domain_name }}"
     safe_mode_password: "{{ recovery_password }}"
-    reboot: True
+    reboot: true
+  register: domain_install
+
+- name: Reboot new Windows DC.
+  win_reboot:
+  when: domain_install.reboot_required  
 
 - name: Set internal DNS server 
   win_dns_client:
     adapter_names: '*'
     ipv4_addresses:
     - '127.0.0.1'
-
-- name: Create reverse DNS zone
-  win_shell: "Add-DnsServerPrimaryZone -NetworkID {{reverse_dns_zone}} -ReplicationScope Forest"  
-  retries: 30
-  delay: 60
-  register: result           
-  until: result is succeeded
 
 - name: Check for xRemoteDesktopAdmin Powershell module.
   win_psmodule:
@@ -72,3 +77,10 @@
     resource_name: xRemoteDesktopAdmin
     Ensure: present
     UserAuthentication: NonSecure
+
+- name: List Domain Controllers in Domain.
+  win_shell: "nltest /dclist:{{ domain_name }}"
+  register: domain_list
+
+- debug:
+    var: domain_list
