@@ -1,0 +1,7 @@
+---
+- name: Setup Windows IIS.
+  hosts: all
+  gather_facts: false
+
+  roles:
+  - create_windows_domain
