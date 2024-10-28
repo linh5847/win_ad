@@ -67,3 +67,15 @@ domainusers:
     gidNumber: 1001
     unixHomeDirectory: "/home/lnguyen"
     loginShell: "{{ default_login_shell }}"
+- firstname: Sarah
+  surname: Joe
+  password: "P@ssW0rd2"
+  groups: "user_grp2,uk_sys"
+  enabled: True
+  account_locked: False
+  attributes: 
+    telephoneNumber: "123-345-667"
+    uidNumber: 1002
+    gidNumber: 1002
+    unixHomeDirectory: "/home/sjoe"
+    loginShell: "{{ default_login_shell }}"
