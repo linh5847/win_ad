@@ -54,11 +54,14 @@
   win_domain:
     dns_domain_name: "{{ domain_name }}"
     safe_mode_password: "{{ recovery_password }}"
-    reboot: true
   register: domain_install
 
 - name: Reboot new Windows DC.
   win_reboot:
+    msg: "Installing AD. Rebooting..."
+    pre_reboot_delay: 15
+  when: ad.changed
+  delegate_to: "{{ delegate_host }}"
   when: domain_install.reboot_required  
 
 - name: Set internal DNS server 

@@ -1,6 +1,10 @@
 ---
 # tasks file for windows_active_directory
-- name: Calling win_domain_group.yml file.
+- name: Calling win_domain_groups.yml file.
   include_tasks:
-    file: win_domain_group.yml
+    file: win_domain_groups.yml
+
+- name: Calling win_domain_users.yml file.
+  include_tasks:
+    file: win_domain_users.yml
   

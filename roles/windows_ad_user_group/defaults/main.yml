@@ -51,3 +51,19 @@ domaingroups:
   - gidNumber: 20001
 
 delegate_host: "192.168.56.181"
+ad_domain_name: "vntechsol.com"
+default_login_shell: "/bin/bash"
+
+domainusers:
+- firstname: Linh
+  surname: Nguyen
+  password: "P@ssW0rd1"
+  groups: "user_grp1,uk_dev"
+  enabled: True
+  account_locked: False
+  attributes: 
+    telephoneNumber: "123-345-666"
+    uidNumber: 1001
+    gidNumber: 1001
+    unixHomeDirectory: "/home/lnguyen"
+    loginShell: "{{ default_login_shell }}"

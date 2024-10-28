@@ -1,7 +1,0 @@
----
-# tasks file for create_windows_domain
-- name: Calling create_windows_domain.yml file.
-  include_tasks:
-    file: create_windows_domain.yml
-    
-  

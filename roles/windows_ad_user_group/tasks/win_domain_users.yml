@@ -1,0 +1,29 @@
+---
+- name: Create Windows Domain Users
+  win_domain_user:
+    name: "{{item.firstname }}.{{ item.surname }}"
+    firstname: "{{item.firstname }}"
+    surname: "{{ item.surname }}"
+    password: "{{ item.password }}"
+    update_password: always
+    groups: "{{ item.groups|default(omit) }}"
+    state: present
+    enabled: "{{ item.enabled }}"
+    account_locked: "{{ item.account_locked }}"
+    email: "{{ item.firstname }}.{{ item.surname }}@{{ ad_domain_name}}"
+    attributes: "{{ item.attributes|default(omit) }}"
+  with_items: "{{ domainusers }}"
+
+- name: Windows Domain Users Interactive logon.
+  win_user_right:
+    name: SeInteractiveLogonRight
+    users: "{{item.firstname }}.{{ item.surname }}"
+    action: add
+  with_items: "{{ domainusers }}"
+
+- name: Replace the entries of Deny log on locally
+  win_user_right:
+    name: SeDenyInteractiveLogonRight
+    users:
+      - Guest
+    action: set
