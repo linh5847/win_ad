@@ -1,8 +1,8 @@
 ---
-- name: Setup Windows IIS.
+- name: Setup Windows Domain Controller.
   hosts: all
   gather_facts: false
 
   roles:
   - windows_domain
-  - windows_ad_user_group
+  #- { role: windows_domain, tags: windows_domain, when: "inventory_hostname in groups.gets('ad', [])" }

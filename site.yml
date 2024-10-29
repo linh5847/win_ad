@@ -1,0 +1,8 @@
+---
+- name: Setup Windows AD User Group.
+  hosts: all
+  gather_facts: false
+
+  roles:
+  - windows_ad_user_group
+  #- { role: windows_ad_user_group, tags: windows_ad_user_group, when: "inventory_hostname in groups.gets('win', [])" }

@@ -60,9 +60,7 @@
   win_reboot:
     msg: "Installing AD. Rebooting..."
     pre_reboot_delay: 15
-  when: ad.changed
-  delegate_to: "{{ delegate_host }}"
-  when: domain_install.reboot_required  
+  when: domain_install.reboot_required and inventory_hostname in groups["ad"]
 
 - name: Set internal DNS server 
   win_dns_client:

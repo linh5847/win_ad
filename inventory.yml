@@ -1,0 +1,21 @@
+all:
+  children:
+    windows:
+      vars:
+        ansible_user: vagrant
+        ansible_password: vagrant
+        ansible_connection: winrm
+        ansible_winrm_transport: basic
+        ansible_winrm_server_cert_validation: ignore
+        ansible_winrm_kerberos_delegation: true
+      children:
+        windows_domain:
+          children:
+            ad:
+              hosts:
+                windows2019_ad:
+                  ansible_host: 192.168.56.181
+            win:
+              hosts:
+                windows2019:
+                  ansible_host: 192.168.56.182
