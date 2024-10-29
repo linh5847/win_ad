@@ -7,3 +7,4 @@
     attributes: "{{ item.attributes|default(omit) }}"
   with_items: "{{ domaingroups }}"
   delegate_to: "{{ delegate_host | default(omit) }}"
+  when: inventory_hostname in groups["win"]
