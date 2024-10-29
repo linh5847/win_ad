@@ -123,8 +123,8 @@ Vagrant.configure("2") do |config|
     # SHELL
     #config.vm.provision "shell", path: "vagrant/ConfigureRemotingForAnsible.ps1", privileged: true, powershell_elevated_interactive: "true"
 
-    win.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", disabled: true
-    win.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
+    win.vm.network :forwarded_port, guest: 22, host: 2223, id: "ssh", disabled: true
+    win.vm.network :forwarded_port, guest: 3389, host: 3390, id: "rdp", auto_correct: true
     win.vm.network :forwarded_port, guest: 5985, host: 55990, id: "winrm", auto_correct: true
     win.vm.network :forwarded_port, guest: 5986, host: 55991, id: "winrm_ssl", auto_correct: true
   #config.vm.synced_folder "./vagrant", "C:\\vagrant\\vagrant"
