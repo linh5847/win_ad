@@ -1,5 +1,10 @@
 ---
 # tasks file for create_windows_domain
-- name: Calling windows_domain.yml file.
+- name: Calling microsoft_ad_domain.yml file.
   include_tasks:
-    file: windows_domain.yml
+    file: microsoft_ad_domain.yml
+
+# win_domain is deprecated.
+# - name: Calling windows_domain.yml file.
+#   include_tasks:
+#     file: windows_domain.yml

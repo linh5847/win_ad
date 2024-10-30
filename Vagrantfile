@@ -37,6 +37,8 @@ Vagrant.configure("2") do |config|
 
     win_ad.vm.guest = :windows
     win_ad.windows.halt_timeout = 60
+    win_ad.vm.boot_timeout = 900 # Give sysprep first-boot enough time
+    win_ad.vm.graceful_halt_timeout = 900 # Give windows update time
 
     win_ad.vm.network "private_network", ip: "192.168.56.181"
     # config.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: <<-SHELL
@@ -115,6 +117,8 @@ Vagrant.configure("2") do |config|
 
     win.vm.guest = :windows
     win.windows.halt_timeout = 60
+    win.vm.boot_timeout = 900 # Give sysprep first-boot enough time
+    win.vm.graceful_halt_timeout = 900 # Give windows update time
 
     win.vm.network "private_network", ip: "192.168.56.182"
     # config.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: <<-SHELL
