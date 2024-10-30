@@ -7,4 +7,3 @@
 - name: Calling win_domain_users.yml file.
   include_tasks:
     file: win_domain_users.yml
-  
