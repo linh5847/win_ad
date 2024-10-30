@@ -23,7 +23,7 @@ The main gotcha is that the Windows native is winrm connection. Therefore, we ne
 <table>
 <tr>
 <td>
-windows2019_ad machine
+windows2019_ad machine with some important details from Vagrantfile
 
 win_ad.vm.communicator = "winrm"
 win_ad.winrm.guest_port = "5986"
@@ -44,7 +44,7 @@ win_ad.vm.provision "ansible" do |ansible|
 end
 </td>
 <td>
-windows2019 - A dummy machine to see Ansible can be run and create Windows Domain Group and User remotely by reliant on this machine without a need to know or permission on Windows Domain Controller, as well as allow to execute.
+windows2019 - A dummy machine to see Ansible can be run and create Windows Domain Group and User remotely by relying on this machine without a to run on the Windows Domain Controller.
 
 win.vm.communicator = "winrm"
 win.winrm.guest_port = "5986"
