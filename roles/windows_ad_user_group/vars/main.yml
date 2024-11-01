@@ -1,2 +1,3 @@
 ---
 # vars file for windows_active_directory
+hostname: win1

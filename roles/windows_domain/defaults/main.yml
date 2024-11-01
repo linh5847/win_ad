@@ -2,7 +2,7 @@
 # defaults file for create_windows_domain
 dc_hostname: dc01
 domain_name: vntechsol.com
-recovery_password: P@ssW0rd123456
+recovery_password: "P@ssW0rd123456"
 reverse_dns_zone: "192.168.56.0/24"
 upstream_dns_1: "8.8.8.8"
 upstream_dns_2: "8.8.4.4"

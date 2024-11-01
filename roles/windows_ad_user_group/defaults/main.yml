@@ -55,8 +55,8 @@ ad_domain_name: "vntechsol.com"
 default_login_shell: "/bin/bash"
 
 domainusers:
-- firstname: Linh
-  surname: Nguyen
+- firstname: Jolin
+  surname: Barha
   password: "P@ssW0rd1"
   groups: "user_grp1,uk_dev"
   enabled: True
@@ -65,7 +65,7 @@ domainusers:
     telephoneNumber: "123-345-666"
     uidNumber: 1001
     gidNumber: 1001
-    unixHomeDirectory: "/home/lnguyen"
+    unixHomeDirectory: "/home/jbarha"
     loginShell: "{{ default_login_shell }}"
 - firstname: Sarah
   surname: Joe

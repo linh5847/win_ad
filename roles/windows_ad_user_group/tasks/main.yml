@@ -7,3 +7,7 @@
 - name: Calling win_domain_users.yml file.
   include_tasks:
     file: win_domain_users.yml
+
+# - name: Calling microsoft_ad_membership.yml file.
+#   include_tasks:
+#     file: microsoft_ad_membership.yml
