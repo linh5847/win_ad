@@ -6,4 +6,4 @@
     - community.windows
 
   roles:
-  #- windows_ad_user_group
+  - windows_ad_user_group
