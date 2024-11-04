@@ -6,12 +6,27 @@
     state: present
   ignore_errors: True
 
+- name: Enable ms_tcpip6 of all the Interface
+  community.windows.win_net_adapter_feature:
+    interface: '*'
+    state: disabled
+    component_id:
+      - ms_tcpip6
+
+- name: Set static IP address
+  win_shell: "(new-netipaddress -InterfaceAlias Ethernet2 -IPAddress {{ ip_address }} -prefixlength {{ netmask_cidr }} -defaultgateway {{ gateway }})"
+  delegate_to: '{{ ip_address }}'
+  ignore_errors: True
+  when: inventory_hostname in groups["ad"]
+
 - name: Set upstream DNS server.
   win_dns_client:
     adapter_names: '*'
     ipv4_addresses:
     - '{{ upstream_dns_1 }}'
     - '{{ upstream_dns_2 }}'
+    - '{{ ip_address }}'
+    - '192.168.56.1'
 
 - name: Stop the time service.
   win_service:
@@ -76,11 +91,14 @@
     pre_reboot_delay: 15
   when: domain_install.reboot_required and inventory_hostname in groups["ad"]
 
-- name: Set internal DNS server 
-  win_dns_client:
-    adapter_names: '*'
-    ipv4_addresses:
-    - '127.0.0.1'
+# - name: Set internal DNS server 
+#   win_dns_client:
+#     adapter_names: '*'
+#     ipv4_addresses:
+#     - '{{ ip_address }}'
+#     - '{{ upstream_dns_1 }}'
+#     - '{{ upstream_dns_2 }}'
+
 
 - name: Check for xRemoteDesktopAdmin Powershell module.
   win_psmodule:

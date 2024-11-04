@@ -41,6 +41,9 @@ Vagrant.configure("2") do |config|
     #win_ad.vm.graceful_halt_timeout = 900 # Give windows update time
 
     win_ad.vm.network "private_network", ip: "192.168.56.181"
+    config.dns.tld = "dc01"
+    config.vm.hostname = "dc01"
+    config.dns.patterns = [/^(\w+\.)vntechsol.com.dc01$/, /^vntechsol.com.dc01$/]
     # config.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: <<-SHELL
     #   Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
     #   Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
@@ -55,9 +58,10 @@ Vagrant.configure("2") do |config|
 
     win_ad.vm.provider :virtualbox do |v, override|
       v.gui = true
-      v.customize ["modifyvm", :id, "--memory", 8192]
+      v.customize ["modifyvm", :id, "--memory", 4096]
       v.customize ["modifyvm", :id, "--cpus", 2]
       v.customize ["modifyvm", :id, "--vram", 128]
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
 
     #   file_to_disk = File.realpath( "." ).to_s + "/disk.vdi"
@@ -121,6 +125,9 @@ Vagrant.configure("2") do |config|
     #win.vm.graceful_halt_timeout = 900 # Give windows update time
 
     win.vm.network "private_network", ip: "192.168.56.182"
+    config.dns.tld = "win01"
+    config.vm.hostname = "win01"
+    config.dns.patterns = [/^(\w+\.)vntechsol.com.win01$/, /^vntechsol.com.win01$/]
     # config.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", inline: <<-SHELL
     #   Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
     #   Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
@@ -135,9 +142,10 @@ Vagrant.configure("2") do |config|
 
     win.vm.provider :virtualbox do |v, override|
       v.gui = true
-      v.customize ["modifyvm", :id, "--memory", 8192]
+      v.customize ["modifyvm", :id, "--memory", 4096]
       v.customize ["modifyvm", :id, "--cpus", 2]
       v.customize ["modifyvm", :id, "--vram", 128]
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
 
     #   file_to_disk = File.realpath( "." ).to_s + "/disk.vdi"

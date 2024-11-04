@@ -8,6 +8,8 @@ brew install pipx
 
 pipx inject ansible pywinrm  # if you installed ansible with pipx
 
+vagrant plugin install vagrant-dns
+
 pipx inject ansible-core pywinrm  # if you installed ansible-core with pipx
 
 This ansible playbook for Windows Operating System and has been tested on Vagrant Windows2019 successfully.
@@ -68,3 +70,13 @@ end
 </table>
 
 As you can see that each machine winrm port and guest_port is different, including ssh or RDP. Pay attention to the Vagrantfile and inventory.yml in case you want to say RDP to 3389 and 3390 as both can not have the same port.
+
+Windows get and set ip
+'''
+Get-NetAdapterBinding
+Get-NetIPInterface
+Set-NetIPInterface -InterfaceIndex 4 -InterfaceMetrix
+
+4 = usually value from first column of Get-NetIPInterface of particular interface
+15 = Usually value from third column of Get-NetIPInterface of particular interface
+'''

@@ -9,23 +9,58 @@
 #     enabled: true
 #     state: present
 
-- name: Change the hostname 
-  win_hostname:
-    name: "{{ hostname }}"
-  register: res
+# - name: Change the hostname 
+#   win_hostname:
+#     name: "{{ hostname }}"
+#   register: res
+#   when: inventory_hostname in groups["win"]
 
-- name: Reboot
-  win_reboot:
-  when: res.reboot_required
+# - name: Reboot
+#   win_reboot:
+#   when: res.reboot_required
 
-- name: Join new Windows machine to domain controller with automatic reboot
-  microsoft.ad.membership:
-    dns_domain_name: "vntechsol.com"
-    hostname: "{{ hostname }}"
-    domain_admin_user: administrator
-    domain_admin_password: "P@ssW0rd123456"
-    #domain_ou_path: "OU=Windows,OU=Servers,DC=vntechsol,DC=com"
-    state: domain
-    reboot: true
+# - name: Join new Windows machine to domain controller with automatic reboot
+#   microsoft.ad.membership:
+#     dns_domain_name: vntechsol.com
+#     hostname: "{{ hostname }}"
+#     domain_admin_user: Administrator@vntechsol.com
+#     domain_admin_password: "P@ssW0rd123456"
+#     domain_ou_path: "OU=testing,DC=vntechsol,DC=com"
+#     state: domain
+    #reboot: true
   #delegate_to: "{{ delegate_host | default(omit) }}"
+  #when: inventory_hostname in groups["win"]
+
+- name: Enable ms_tcpip6 of all the Interface
+  community.windows.win_net_adapter_feature:
+    interface: '*'
+    state: disabled
+    component_id:
+      - ms_tcpip6
+
+- name: Set client DNS server.
+  win_dns_client:
+    adapter_names: '*'
+    ipv4_addresses:
+    - '{{ upstream_dns_1 }}'
+    - '{{ upstream_dns_2 }}'
+    - '{{ delegate_host }}'
+    - '192.168.56.1'
+
+- name: Configure Windows Static IP.
+  win_shell: "(new-netipaddress -InterfaceAlias Ethernet2 -IPAddress {{ ip_address }} -prefixlength {{ netmask_cidr }} -defaultgateway {{ gateway }})"
+  delegate_to: '{{ ip_address }}'  
+  ignore_errors: True
   when: inventory_hostname in groups["win"]
+  
+- name: Join Domain.
+  win_domain_membership:
+    dns_domain_name: "{{ ad_domain_name }}"
+    hostname: "{{ hostname }}"
+    domain_admin_user: Administrator@vntechsol.com
+    domain_admin_password: PassW0rd123456
+    domain_ou_path: "OU=testing,DC=vntechsol,DC=com"    # tried with no OU as well as this manually-created new OU. No OU fails in the same manner
+    state: domain
+    register: domain_state
+  #delegate_to: "{{ delegate_host | default(omit) }}"
+  #when: inventory_hostname in groups["ad"]

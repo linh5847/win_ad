@@ -1,13 +1,13 @@
 ---
 # tasks file for windows_active_directory
-- name: Calling win_domain_groups.yml file.
-  include_tasks:
-    file: win_domain_groups.yml
-
-- name: Calling win_domain_users.yml file.
-  include_tasks:
-    file: win_domain_users.yml
-
-# - name: Calling microsoft_ad_membership.yml file.
+# - name: Calling win_domain_groups.yml file.
 #   include_tasks:
-#     file: microsoft_ad_membership.yml
+#     file: win_domain_groups.yml
+
+# - name: Calling win_domain_users.yml file.
+#   include_tasks:
+#     file: win_domain_users.yml
+
+- name: Calling microsoft_ad_membership.yml file.
+  include_tasks:
+    file: microsoft_ad_membership.yml

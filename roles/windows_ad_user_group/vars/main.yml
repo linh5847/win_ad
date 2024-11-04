@@ -1,3 +1,8 @@
 ---
 # vars file for windows_active_directory
-hostname: win1
+hostname: win01
+ip_address: "192.168.56.182"
+gateway: "192.168.56.1"
+netmask_cidr: 24
+upstream_dns_1: "8.8.8.8"
+upstream_dns_2: "8.8.4.4"

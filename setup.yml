@@ -2,6 +2,8 @@
 - name: Setup Windows Domain Controller.
   hosts: all
   gather_facts: false
+  collections:
+    - community.windows
 
   roles:
   - windows_domain
