@@ -73,7 +73,9 @@ As you can see that each machine winrm port and guest_port is different, includi
 
 Windows get and set ip
 '''
+Get-AdDomainController
 Get-NetAdapterBinding
+Get-DnsServerSetting -ALL
 Get-NetIPInterface
 Set-NetIPInterface -InterfaceIndex 4 -InterfaceMetrix
 
